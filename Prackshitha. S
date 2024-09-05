@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include <string.h>
+
+// Define a structure for Date
+typedef struct {
+    int day;
+    int month;
+    int year;
+} Date;
+
+// Define enumeration for Department
+typedef enum {
+    MANAGEMENT,
+    SALES,
+    MARKETING,
+    IT,
+    HR
+} Department;
+
+// Define enumeration for Designation
+typedef enum {
+    DEPARTMENT_HEAD,
+    CLERICAL_WORKER
+} Designation;
+
+// Define a structure for Employee
+typedef struct {
+    int employeeID;
+    char employeeName[100];
+    Designation designation;
+    float salary;
+    Date dateOfJoining;
+    Department department;
+} Employee;
+
+// Function to calculate salary based on experience and designation
+float calculateSalary(float basicSalary, int experience, Designation designation) {
+    if (designation == DEPARTMENT_HEAD) {
+        if (experience > 5) {
+            return basicSalary + (basicSalary * 0.10);
+        } else if (experience >= 3 && experience <= 5) {
+            return basicSalary + (basicSalary * 0.05);
+        } else {
+            return basicSalary + (basicSalary * 0.02);
+        }
+    } else if (designation == CLERICAL_WORKER) {
+        if (experience >= 5) {
+            return basicSalary + (basicSalary * 0.15);
+        } else if (experience >= 3 && experience < 5) {
+            return basicSalary + (basicSalary * 0.10);
+        } else {
+            return basicSalary + (basicSalary * 0.05);
+        }
+    }
+}
+
+// Function to print department name
+void printDepartment(Department department) {
+    switch (department) {
+        case MANAGEMENT:
+            printf("Management\n");
+            break;
+        case SALES:
+            printf("Sales\n");
+            break;
+        case MARKETING:
+            printf("Marketing\n");
+            break;
+        case IT:
+            printf("IT\n");
+            break;
+        case HR:
+            printf("HR\n");
+            break;
+    }
+}
+
+// Function to print designation name
+void printDesignation(Designation designation) {
+    switch (designation) {
+        case DEPARTMENT_HEAD:
+            printf("Department Head\n");
+            break;
+        case CLERICAL_WORKER:
+            printf("Clerical Worker\n");
+            break;
+    }
+}
+
+int main() {
+    // Initialize an Employee structure
+    Employee emp;
+    emp.employeeID = 1;
+    strcpy(emp.employeeName, "John Doe");
+    emp.designation = DEPARTMENT_HEAD;
+    emp.dateOfJoining.day = 1;
+    emp.dateOfJoining.month = 1;
+    emp.dateOfJoining.year = 2018;
+    emp.department = MANAGEMENT;
+
+    // Calculate salary based on experience and designation
+    int experience = 2024 - emp.dateOfJoining.year;
+    float basicSalary = 50000.0;
+    emp.salary = calculateSalary(basicSalary, experience, emp.designation);
+
+    // Print Employee details
+    printf("Employee ID: %d\n", emp.employeeID);
+    printf("Employee Name: %s\n", emp.employeeName);
+    printf("Designation: ");
+    printDesignation(emp.designation);
+    printf("Salary: %.2f\n", emp.salary);
+    printf("Date of Joining: %d-%d-%d\n", emp.dateOfJoining.day, emp.dateOfJoining.month, emp.dateOfJoining.year);
+    printf("Department: ");
+    printDepartment(emp.department);
+
+    return 0;
+}
+```
+
+This combined code includes the suggestions I mentioned earlier, such as using enumerations for department and designation, and adding functions to print department and designation names.
